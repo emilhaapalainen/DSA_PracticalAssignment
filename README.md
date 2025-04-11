@@ -12,9 +12,8 @@ The implemented hash table uses linear probing to resolve the collision problem.
 
 1.2 Hash function
 
-The hashing function I uses the python function ‘ord()’ to converts each character in the input string to an integer representing the respective Unicode character. The values are added together and raised to the fourth power. Then we divide the value by the size of the hash table, and use the remainder as the index for the value.
-The reason why we do this is so we can distribute the values across the table roughly evenly. If we didn’t do this, if a lot of similar values are inputted to the table, most of them will be placed at the beginning slots which results in very long linked lists. This affects the performance of the program massively.
-
+The hashing function uses the python function ‘ord()’ to convert each character in the input string to an integer representing the respective Unicode character. The values are added together and raised to the fourth power. Then, we divide the value by the size of the hash table and use the remainder as the index for the value.
+The reason we do this is to roughly distribute the values across the table evenly. Without this, inserting many similar values into the table would cluster them at the beginning slots, creating long linked lists and significantly degrading performance.
 1.3 Methods
 The hashing table has the following methods:
 - insert
@@ -28,11 +27,16 @@ The deletion function is rather self explanatory; The function gets the data tha
 The search function loops through the list and looks for the data needs to be searched for. The wanted data is given as a parameter. The function returns True if it found the data, and False if it didn’t.
 The print function traverses through the entire table and prints out each index which holds data, and their respective linked list.
 
-2.1 Running time analysis of the hash table 
-    • The running time for adding a new value to the hash table is Θ(1), because both the hash table data structure and the linked list have a running time of Θ(1) in the average case of insertion.
-    • The running time for finding a new value in the has table is Θ(N), because searching through the linked list take Θ(N) time.
-    • The running time for removing a value from the hash table is Θ(1), because both the hash table data structure and the linked list have a running time of Θ(1) in the average case of deletion.
-   
+2.1 Running Time Analysis of the Hash Table
+
+- **Insertion:**  
+  The running time for adding a new value to the hash table is Θ(1), because both the hash table data structure and the linked list have a running time of Θ(1) in the average case of insertion.
+
+- **Search:**  
+  The running time for finding a value in the hash table is Θ(N), because searching through the linked list takes Θ(N) time in the worst case.
+
+- **Deletion:**  
+  The running time for removing a value from the hash table is Θ(1), because both the hash table data structure and the linked list have a running time of Θ(1) in the average case of deletion.
 
 3. The Pressure Test
 
@@ -43,8 +47,8 @@ The print function traverses through the entire table and prints out each index 
 3.1 Comparison of the data structures
 
 Adding the words from the file to the list was significantly faster than adding them to the hash table.  This is because the hashing function takes some time calculate the indexes where to store the data.
-The search function was the complete opposite. Searching for the common words between the lists took roughly 3.5 seconds with the has table and a staggering 220 seconds when adding the words to a list instead of the hash table. This is because the location of the wanted value is generated based on the value. If we give the value again, the same hash is calculated as the one when inserting the value in the first place. This gives the location of the data almost immediately. When we’re adding the words to a list instead of the hash table, we have to search through the entire list to find the data we’re looking for.
+The search function was the complete opposite. Searching for the common words between the lists took roughly 3.5 seconds with the hash table and a staggering 220 seconds when adding the words to a list instead of the hash table. This is because the location of the wanted value is generated based on the value. If we give the value again, the same hash is calculated as the one when inserting the value in the first place. This gives the location of the data almost immediately. When we’re adding the words to a list instead of the hash table, we have to search through the entire list to find the data we’re looking for.
 
 3.2 Further improvements
 
-The program gets significantly faster when we use a bigger size table. In the stress test, increasing the table size to 100,000 yielded much faster times for all of the operations. Increasing the size beyond that however, significantly slows down every operation. The reason this is happening, is because when we increase the size of the table, data gets distributed more evenly throughout the hash table, which in turn means less lengthy linked lists, which equals to less time searching through the lists.
+The program gets significantly faster when we use a bigger sized table. In the stress test, increasing the table size to 100,000 yielded much faster times for all of the operations. Increasing the size beyond that however, significantly slows down every operation. The reason this is happening, is because when we increase the size of the table, data gets distributed more evenly throughout the hash table, which in turn means less lengthy linked lists, which equals to less time searching through the lists.
